@@ -1,0 +1,29 @@
+name: cicd
+
+on:
+  push:
+
+env:
+  PATH_TO_APP : awesome_app
+
+jobs:
+    ci:
+      name: Continuous Integration
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Setup Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            channel: 'stable'
+            flutter-version: '3.32'
+            cache: true
+
+        - name: Install dependencies
+          run: flutter pub get
+          working-directory: ${{ env.PATH_TO_APP }}
+        - name: Build app for web
+          run: flutter build web
+          working-directory: ${{ env.PATH_TO_APP }}
