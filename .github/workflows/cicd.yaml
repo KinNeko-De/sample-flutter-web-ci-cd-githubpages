@@ -1,0 +1,12 @@
+name: cicd
+
+on:
+  push:
+
+jobs:
+    ci:
+      name: Continuous Integration
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
