@@ -3,6 +3,9 @@ name: cicd
 on:
   push:
 
+env:
+  PATH_TO_APP : awesome_app
+
 jobs:
     ci:
       name: Continuous Integration
@@ -17,3 +20,10 @@ jobs:
             channel: 'stable'
             flutter-version: '3.32'
             cache: true
+
+        - name: Install dependencies
+          run: flutter pub get
+          working-directory: ${{ env.PATH_TO_APP }}
+        - name: Build app for web
+          run: flutter build web
+          working-directory: ${{ env.PATH_TO_APP }}
