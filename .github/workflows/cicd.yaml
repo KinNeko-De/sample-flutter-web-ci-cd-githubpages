@@ -40,3 +40,11 @@ jobs:
           uses: actions/upload-pages-artifact@v3
           with:
             path: ${{ env.PATH_TO_APP }}/build/web
+
+    cd:
+      name: Continuous Deployment
+      needs: ci
+      runs-on: ubuntu-latest
+      permissions:
+        pages: write
+        id-token: write
