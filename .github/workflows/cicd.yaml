@@ -35,3 +35,8 @@ jobs:
         - name: Run tests
           run: flutter test
           working-directory: ${{ env.PATH_TO_APP }}
+
+        - name: Upload artifact
+          uses: actions/upload-pages-artifact@v3
+          with:
+            path: ${{ env.PATH_TO_APP }}/build/web
