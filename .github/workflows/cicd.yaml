@@ -44,6 +44,7 @@ jobs:
     cd:
       name: Continuous Deployment
       needs: ci
+      if: github.ref == 'refs/heads/main'
       runs-on: ubuntu-latest
       permissions:
         pages: write
