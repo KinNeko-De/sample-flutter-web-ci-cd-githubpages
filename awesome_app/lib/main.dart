@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -67,6 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _launchUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -104,6 +113,50 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Built with Flutter logo with proper spacing
+            Padding(
+              padding: const EdgeInsets.all(24.0), // Equivalent to 'F' height spacing
+              child: Image.network(
+                'https://storage.googleapis.com/cms-storage-bucket/lockup_built-w-flutter.4cdf1c5482cd30174cfe.png',
+                height: 180,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback to text if image fails to load
+                  return const Text(
+                    'Built with Flutter',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blue,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 180), // Additional spacing before counter, required by https://flutter.dev/brand
+            InkWell(
+              onTap: () => _launchUrl('https://docs.flutter.dev/get-started/codelab'),
+              child: const Text(
+                'Lab: Write your first Flutter app',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () => _launchUrl('https://docs.flutter.dev/cookbook'),
+              child: const Text(
+                'Cookbook: Useful Flutter samples',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',

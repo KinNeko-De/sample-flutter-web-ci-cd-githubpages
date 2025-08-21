@@ -25,4 +25,38 @@ void main() {
       expect(find.text('1'), findsOneWidget);
     });
   });
+
+  testWidgets('Built with Flutter image is present', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+    // Look for a network image with the correct URL
+    expect(
+      find.byWidgetPredicate((widget) =>
+        widget is Image &&
+        widget.image is NetworkImage &&
+        (widget.image as NetworkImage).url == 'https://storage.googleapis.com/cms-storage-bucket/lockup_built-w-flutter.4cdf1c5482cd30174cfe.png'),
+      findsOneWidget,
+    );
+  });
+
+  group('Learning links', () {
+    testWidgets('Lab: Write your first Flutter app link is present and tappable', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      // Find the "Lab: Write your first Flutter app" text
+      final textFinder = find.text('Lab: Write your first Flutter app');
+      expect(textFinder, findsOneWidget);
+      // Ensure it is wrapped in an InkWell (tappable)
+      final inkWellFinder = find.ancestor(of: textFinder, matching: find.byType(InkWell));
+      expect(inkWellFinder, findsOneWidget);
+    });
+
+    testWidgets('Cookbook: Useful Flutter samples link is present and tappable', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      // Find the "Cookbook: Useful Flutter samples" text
+      final textFinder = find.text('Cookbook: Useful Flutter samples');
+      expect(textFinder, findsOneWidget);
+      // Ensure it is wrapped in an InkWell (tappable)
+      final inkWellFinder = find.ancestor(of: textFinder, matching: find.byType(InkWell));
+      expect(inkWellFinder, findsOneWidget);
+    });
+  });
 }
