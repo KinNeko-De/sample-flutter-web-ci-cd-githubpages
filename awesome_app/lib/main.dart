@@ -104,6 +104,26 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Built with Flutter logo with proper spacing
+            Padding(
+              padding: const EdgeInsets.all(24.0), // Equivalent to 'F' height spacing
+              child: Image.network(
+                'https://storage.googleapis.com/cms-storage-bucket/lockup_built-w-flutter.4cdf1c5482cd30174cfe.png',
+                height: 180,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback to text if image fails to load
+                  return const Text(
+                    'Built with Flutter',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blue,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 180), // Additional spacing before counter, required by https://flutter.dev/brand
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
