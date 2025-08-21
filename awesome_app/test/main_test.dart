@@ -25,4 +25,16 @@ void main() {
       expect(find.text('1'), findsOneWidget);
     });
   });
+
+  testWidgets('Built with Flutter image is present', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+    // Look for a network image with the correct URL
+    expect(
+      find.byWidgetPredicate((widget) =>
+        widget is Image &&
+        widget.image is NetworkImage &&
+        (widget.image as NetworkImage).url == 'https://storage.googleapis.com/cms-storage-bucket/lockup_built-w-flutter.4cdf1c5482cd30174cfe.png'),
+      findsOneWidget,
+    );
+  });
 }
