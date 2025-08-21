@@ -37,4 +37,26 @@ void main() {
       findsOneWidget,
     );
   });
+
+  group('Learning links', () {
+    testWidgets('Lab: Write your first Flutter app link is present and tappable', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      // Find the "Lab: Write your first Flutter app" text
+      final textFinder = find.text('Lab: Write your first Flutter app');
+      expect(textFinder, findsOneWidget);
+      // Ensure it is wrapped in an InkWell (tappable)
+      final inkWellFinder = find.ancestor(of: textFinder, matching: find.byType(InkWell));
+      expect(inkWellFinder, findsOneWidget);
+    });
+
+    testWidgets('Cookbook: Useful Flutter samples link is present and tappable', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      // Find the "Cookbook: Useful Flutter samples" text
+      final textFinder = find.text('Cookbook: Useful Flutter samples');
+      expect(textFinder, findsOneWidget);
+      // Ensure it is wrapped in an InkWell (tappable)
+      final inkWellFinder = find.ancestor(of: textFinder, matching: find.byType(InkWell));
+      expect(inkWellFinder, findsOneWidget);
+    });
+  });
 }
